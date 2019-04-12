@@ -1,0 +1,23 @@
+#!/bin/bash
+if [[ $(git remote -v | grep github.com) ]]; then
+  echo "Commit Rules enforced"
+else
+  exit 0
+fi
+
+MSG_FILE=$1
+FILE_CONTENT="$(cat $MSG_FILE)"
+
+# Initialize constants here
+export REGEX='^(DE[0-9]+:|US[0-9]+:|Merge) .+'
+export ERROR_MSG="Commit message format must match regex \"${REGEX}\""
+
+if [[ $FILE_CONTENT =~ $REGEX ]]; then
+	echo "Good commit!"
+else
+  echo "Bad commit \"$FILE_CONTENT\""
+	echo $ERROR_MSG
+	exit 1
+fi
+
+exit 0
