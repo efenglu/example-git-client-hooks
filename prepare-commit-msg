@@ -1,8 +1,9 @@
 #!/bin/bash
 if [[ $(git remote -v | grep github.com) ]]; then
-  echo "Commit Rules enforced"
-else
+  echo "Commit Rules NOT enforced"
   exit 0
+else
+  echo "Commit Rules enforced"
 fi
 
 MSG_FILE=$1
